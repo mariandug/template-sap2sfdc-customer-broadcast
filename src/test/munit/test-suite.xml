@@ -17,15 +17,20 @@
     <configuration-properties doc:name="Configuration properties" doc:id="19be7514-eb52-4cd0-a13b-13476b89dfc8" file="common.properties" />
 
     <munit:before-test name="test-suite-Before_Test" description="Before tests actions" doc:id="4c32c3f1-123a-4f73-bf21-14be509f3dba">
-        <set-variable value="#[MunitTools::getResourceAsString('idoc.xml')]" doc:name="Set iDoc message to variable" doc:id="d3be1eb9-5523-41cb-b0e6-a55b5e7c5ce5"
+        <logger level="INFO" doc:name="Log before test" doc:id="a6289ac2-39fc-447a-8b5b-95beafb3f458" message="Before test"/>
+		<set-variable value="#[MunitTools::getResourceAsString('idoc.xml')]" doc:name="Set iDoc message to variable" doc:id="d3be1eb9-5523-41cb-b0e6-a55b5e7c5ce5"
             variableName="iDoc" mimeType="application/xml" />
+		<logger level="INFO" doc:name="Log idoc" doc:id="50fda81b-f9cd-456b-9388-e3c2f3da9a97" message="iDoc=#[vars.iDoc]"/>
     </munit:before-test>
     <munit:test name="test-suite-Test" description="MUnit Test" doc:id="5825e635-96f0-418c-bed1-805c3e480e14">
         <munit:execution>
-            <set-payload value="#[vars.iDoc]" doc:name="Set IDoc message to Payload" doc:id="25db7909-7bd2-4cf5-8848-4afc9f1179d4"
+            <logger level="INFO" doc:name="Log test execution" doc:id="7f548e68-84a5-4b90-a1db-0ed61fda2a1e" message="Test execution"/>
+			<set-payload value="#[vars.iDoc]" doc:name="Set IDoc message to Payload" doc:id="25db7909-7bd2-4cf5-8848-4afc9f1179d4"
                 mimeType="application/xml" />
-            <flow-ref doc:name="Call businessLogicFlow" doc:id="a2c84069-dc46-4edc-a493-cf58ab15f462" name="businessLogicFlow" />
-            <scripting:execute engine="groovy" doc:name="Sleep for 30s until the processing is completed" doc:id="1453dda4-5784-41d0-ba6e-bd07aeea9b17">
+            <logger level="INFO" doc:name="Log business logic" doc:id="61c2bdf8-bd57-411a-bb60-fc3c0ad34b38" message="Business logic start, payload=#[payload]"/>
+			<flow-ref doc:name="Call businessLogicFlow" doc:id="a2c84069-dc46-4edc-a493-cf58ab15f462" name="businessLogicFlow" />
+            <logger level="INFO" doc:name="Log BL finish" doc:id="e27a597f-2f27-4c6f-818a-193e263049f6" message="Business logic finished"/>
+			<scripting:execute engine="groovy" doc:name="Sleep for 30s until the processing is completed" doc:id="1453dda4-5784-41d0-ba6e-bd07aeea9b17">
                 <scripting:code>sleep(30000)</scripting:code>
             </scripting:execute>
             <salesforce:query-single doc:name="Query record should be created in Salesforce" doc:id="c9e0704b-203c-4c6a-b846-af2294584f81"
@@ -39,15 +44,19 @@
             </salesforce:query-single>
         </munit:execution>
         <munit:validation>
-            <munit-tools:assert-that doc:name="Assert that record was added to Salesforce" doc:id="985eb58a-2509-4e03-b63b-98f3e82b32d8"
+            <logger level="INFO" doc:name="Log test validation" doc:id="dd3132c2-4b47-48c0-bad0-a3566760bdcf" message="Test validation"/>
+			<munit-tools:assert-that doc:name="Assert that record was added to Salesforce" doc:id="985eb58a-2509-4e03-b63b-98f3e82b32d8"
                 expression="#[vars.resultCreated.Id]" is="#[MunitTools::notNullValue()]" message="Record wasn't added to Salesforce" />
             <munit-tools:verify-call doc:name="Verify salesforce:upsert call" doc:id="16d72280-5688-4cd1-b4cb-0e88ec2c318b"
                 processor="salesforce:upsert" times="1" />
+			<logger level="INFO" doc:name="Log validation end" doc:id="38645695-1a13-4784-9d82-cf1f089c2ab4" message="Validation finished"/>
         </munit:validation>
     </munit:test>
     <munit:after-test name="test-suite-After_Test" description="After tests actions" doc:id="9f515248-08cd-46d7-858c-ee1f9eb2844f">
-        <salesforce:delete doc:name="Delete test data from Salesforce" doc:id="a13bd00c-0b46-4919-a84c-ec8e0b0274b4" config-ref="Salesforce">
+        <logger level="INFO" doc:name="Log after test" doc:id="262235b9-42b5-4dec-9a1d-aef53ba9c6ef" message="After test"/>
+		<salesforce:delete doc:name="Delete test data from Salesforce" doc:id="a13bd00c-0b46-4919-a84c-ec8e0b0274b4" config-ref="Salesforce">
             <salesforce:delete-ids><![CDATA[#[[vars.resultCreated.Id]]]]></salesforce:delete-ids>
         </salesforce:delete>
+		<logger level="INFO" doc:name="Log revert result" doc:id="9654caf9-2534-44ec-95c8-3cf3a277fb8c" message="SFDC data revert payload=#[output application/json --- payload]"/>
     </munit:after-test>
 </mule>

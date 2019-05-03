@@ -48,6 +48,7 @@ using (customer = payload.DEBMAS01.IDOC.E1KNA1M)
 				</batch:step>
 			</batch:process-records>
 			<batch:on-complete>
+				<logger level="INFO" doc:name="Log on complete" doc:id="7c60c4ca-f05f-4cf4-8121-aceb0293927d" message="On complete, payload=#[output application/json --- payload]"/>
 				<ee:transform doc:name="Prepare migration result"
 					doc:id="c84b4bc4-5a65-41c1-9d0c-f1ebd3d8db7a">
 					<ee:message>

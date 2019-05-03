@@ -30,8 +30,8 @@
             <logger level="INFO" doc:name="Log business logic" doc:id="61c2bdf8-bd57-411a-bb60-fc3c0ad34b38" message="Business logic start, payload=#[payload]"/>
 			<flow-ref doc:name="Call businessLogicFlow" doc:id="a2c84069-dc46-4edc-a493-cf58ab15f462" name="businessLogicFlow" />
             <logger level="INFO" doc:name="Log BL finish" doc:id="e27a597f-2f27-4c6f-818a-193e263049f6" message="Business logic finished"/>
-			<scripting:execute engine="groovy" doc:name="Sleep for 30s until the processing is completed" doc:id="1453dda4-5784-41d0-ba6e-bd07aeea9b17">
-                <scripting:code>sleep(30000)</scripting:code>
+			<scripting:execute engine="groovy" doc:name="Sleep for 60s until the processing is completed" doc:id="1453dda4-5784-41d0-ba6e-bd07aeea9b17">
+                <scripting:code>sleep(60000)</scripting:code>
             </scripting:execute>
             <salesforce:query-single doc:name="Query record should be created in Salesforce" doc:id="c9e0704b-203c-4c6a-b846-af2294584f81"
                 config-ref="Salesforce" target="resultCreated">

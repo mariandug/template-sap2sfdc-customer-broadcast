@@ -44,7 +44,7 @@
             </salesforce:query-single>
         </munit:execution>
         <munit:validation>
-            <logger level="INFO" doc:name="Log test validation" doc:id="dd3132c2-4b47-48c0-bad0-a3566760bdcf" message="Test validation"/>
+            <logger level="INFO" doc:name="Log test validation" doc:id="dd3132c2-4b47-48c0-bad0-a3566760bdcf" message="Test validation, resultCreated=#[output application/json --- vars.resultCreated]"/>
 			<munit-tools:assert-that doc:name="Assert that record was added to Salesforce" doc:id="985eb58a-2509-4e03-b63b-98f3e82b32d8"
                 expression="#[vars.resultCreated.Id]" is="#[MunitTools::notNullValue()]" message="Record wasn't added to Salesforce" />
             <munit-tools:verify-call doc:name="Verify salesforce:upsert call" doc:id="16d72280-5688-4cd1-b4cb-0e88ec2c318b"

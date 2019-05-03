@@ -33,7 +33,8 @@
 			<scripting:execute engine="groovy" doc:name="Sleep for 60s until the processing is completed" doc:id="1453dda4-5784-41d0-ba6e-bd07aeea9b17">
                 <scripting:code>sleep(60000)</scripting:code>
             </scripting:execute>
-            <salesforce:query-single doc:name="Query record should be created in Salesforce" doc:id="c9e0704b-203c-4c6a-b846-af2294584f81"
+            <logger level="INFO" doc:name="Log sleep end" doc:id="7974d98b-825f-42b4-b388-552bd38f0ade" message="Slept for 60 seconds"/>
+			<salesforce:query-single doc:name="Query record should be created in Salesforce" doc:id="c9e0704b-203c-4c6a-b846-af2294584f81"
                 config-ref="Salesforce" target="resultCreated">
                 <salesforce:salesforce-query>SELECT Id FROM Account WHERE Name = ':name'</salesforce:salesforce-query>
                 <salesforce:parameters><![CDATA[#[output application/java

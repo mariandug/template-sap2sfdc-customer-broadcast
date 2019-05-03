@@ -36,8 +36,9 @@ using (customer = payload.DEBMAS01.IDOC.E1KNA1M)
 					doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb">
 					<batch:aggregator doc:name="Batch Aggregator"
 						doc:id="1ad86a98-643e-494a-a90a-32daab0b03cc" size="${page.size}">
+						<logger level="INFO" doc:name="Logger" doc:id="d30ebd0b-4f17-4f23-b645-d350b038d6ff" message="start foreachCustomerInSAPUpsertAccountInSFDCStep"/>
 						<logger level="INFO" doc:name="Log upsert of Salesforce Account"
-							doc:id="7236a9f6-7aaf-4f40-94e3-e477a132e88d" message="Upsert Account in Salesforce: #[payload]" />
+							doc:id="7236a9f6-7aaf-4f40-94e3-e477a132e88d" message="Upsert Account in Salesforce: #[output application/json --- payload]" />
 						<salesforce:upsert doc:name="Upsert Accounts in Salesforce"
 							doc:id="2dbf7bd3-d0de-4c30-9f9c-73df56ec46c9" config-ref="Salesforce"
 							externalIdFieldName="sap_external_id__c" type="Account" />
